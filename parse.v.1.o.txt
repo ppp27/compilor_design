@@ -1,0 +1,121 @@
+#include<iostream>
+#include"myheader.h"
+struct buffer{
+	char arr[100];
+	int top;
+   int size;
+};
+char lookahead(struct buffer st,int length){
+	return st.arr[st.size];
+	st.size--;
+}
+void match(char t , int length,struct buffer st);
+struct buffer st;
+int precidence=0;
+void T(int length,struct buffer st);
+void R(int length,struct buffer st);
+void F(int length,struct buffer st);
+void R1(int length,struct buffer st);
+void E(int length,struct buffer st);
+void match(char t , int length,struct buffer st){
+	if (lookahead(st,length)==t)
+	{
+		st.size--;
+		length--;
+
+	}
+	else{
+		cout<<"err";
+	}
+}
+int parser(struct buffer st,string str){
+	int length=str.size();
+	cout<<st.arr[5];
+	E(length,st);
+	
+}
+//Grammer is in ll(1):
+//E->TR
+//R->+TR|-TR|(-
+//T->FR'
+//R'->*FR'|/FR'|(-
+//F->(E)|$;
+//$->[a-z][0-9]
+//
+/*char lookahead(struct buffer st,int length){
+	st.size=length;
+	char l=st.arr[length];
+	cout<<l;
+	return l;
+}*/
+void E(int length,struct buffer st){
+	cout<<"e";
+	for (int i = 0; i <16; ++i)
+	{
+		cout<<st.arr[i];/* code */
+	}
+	T(length,st);
+	R(length,st);
+}
+void R(int length,struct buffer st){
+	cout<<"r";
+	switch(lookahead(st,length)){
+		case '+':
+			cout<<"+";
+			precidence=1;
+			T(length,st);
+			R(length,st);
+		case '-':
+			cout<<"-";
+			precidence=1;
+			T(length,st);
+			R(length,st);
+	}
+
+}
+void T(int length,struct buffer st){
+	cout<<"t";
+	F(length,st);
+	R1(length,st);
+}
+void R1(int length,struct buffer st){
+	cout<<"r1";
+	switch(lookahead(st,length)){
+		case '*':
+			cout<<"*";
+			precidence=2;
+			F(length,st);
+			R1(length,st);
+		case '/':
+			cout<<"/";
+			precidence=2;
+			F(length,st);
+			R1(length,st);
+	}
+
+}
+void F(int length,struct buffer st){
+	cout<<"f";
+	cout<<"lookahead"<<lookahead(st,st.size);
+	switch(lookahead(st,st.size--)){
+		case '(':
+			match('(',length,st);
+			E(length,st);
+			match(')',length,st);
+		case 'a' :
+			cout<<"a";
+		case 'b' :
+			cout<<"b";
+		case 'c' :
+			cout<<"c";
+		case 'd' :
+			cout<<"d";
+		case 'e' :
+			cout<<"e";
+		case 'f' :
+			cout<<"f";
+	}
+
+
+}
+

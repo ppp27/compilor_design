@@ -1,0 +1,65 @@
+#include<iostream>
+using namespace std;
+#define MAX 1000
+struct buffer{
+	char arr[100];
+	int top;
+   int size;
+};
+void push( struct buffer *st, char num) {
+   if (st->top == -1) {
+      cout<<"Buffer is full";
+      return;
+   }
+   st->top--;
+   st->arr[st->top] = num;
+}
+int pop(struct buffer *st) {
+   char num;
+   if (st->size-1==-1) {
+	cout<<"Buffer is underflow";
+      return -1;
+   }
+   num = st->arr[st->size-1];
+   cout<<st->arr[st->size-1]<<"\n";
+   st->size--;
+   return num;
+}
+//parser
+#include<iostream>
+#include"myheader.h"
+struct buffer{
+	char arr[100];
+	int top;
+   int size;
+};
+//Grammer is in ll(1):
+//E->$R
+//R->+TR|-TR|(-
+//E->T
+//T->$R'
+//R'->*FR'|/FR'|(-
+//T->F
+//F->(E);
+//$->'+'|'-'|'*'|'/'|
+//char lookahead(struct buffer st,int i){
+//}
+int parser(struct buffer st){
+	char lat1=pop(&st);
+	cout<<lat1;
+	char lat2=pop(&st);
+	cout<<lat2;
+	char lat3=pop(&st);
+	cout<<lat3;
+	char lat4=pop(&st);
+	cout<<lat4;
+	char lat5=pop(&st);
+	cout<<lat5;
+	if (isalpha(lat5)||isdigit(lat5))/* condition */
+	{
+		cout<<"aplha";
+	}
+	else{
+		cout<<"!alpha";
+	}
+}
